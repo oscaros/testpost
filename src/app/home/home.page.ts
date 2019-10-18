@@ -17,21 +17,40 @@ export class HomePage implements OnInit{
   ];
  
   constructor(public http: HttpClient) {}
+  
 
   saveToCloud(): Observable<any>{
-    const headers = new HttpHeaders({
-      'content-type' : 'application/json'
-    })
-    return this.http.post('http://testapps.citi-mall.com/codetest/index.php/restPostController/add_contact', this.phoneCts[0], {
-      headers
-    }) 
+    
+    var i: number;
+    for (i = 0; i < this.phoneCts.length; i++) {
+    let type = "application/json: charset-utf-8";
+    let headers = new HttpHeaders({'content-type': type});
+    //let options= new RequestOptions({headers:headers});
+
+      console.log(this.phoneCts[i]);
+
+      var i: number;
+      for (i = 0; i < this.phoneCts.length; i++) {
+       return this.http.post('http://testapps.citi-mall.com/codetest/index.php/restPostController/add_contact', JSON.stringify(this.phoneCts[0]), {headers:headers});
+         }    
+    }
+
   }
 
   ngOnInit() {
-    this.saveToCloud().subscribe(res=>{
-      console.log(res);//lets execute this and see
-    })
+    // this.saveToCloud().subscribe(res=>{
+    //   console.log(res);//lets execute this and see
+    // })
     // fetch(this.urlService.url + 'add_contact',{method: 'POST', body: JSON.stringify({contact_name:"Naruto", contact_phone: "0784674523"})})
     //  .then(res=>console.log(res))
+
+    this.saveToCloud().subscribe(res=>{
+        console.log(res);//lets execute this and see
+      })
+
+    // var i: number;
+    // for (i = 0; i < this.phoneCts.length; i++) {
+    //   console.log(this.phoneCts[i]);
+    // }
   }
 }
